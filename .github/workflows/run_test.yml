@@ -44,7 +44,7 @@ jobs:
           wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz | tar xJ -C ~/sfdx --strip-components 1
       - name: Install CLI
         run: |
-          cd ~/sfdx
+          cd ~/sfdx/bin
           ls -ls
           ~/sfdx/install
           export PATH=~/sfdx/bin:$PATH

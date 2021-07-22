@@ -46,7 +46,6 @@ jobs:
         run: |
           cd ~/sfdx/bin
           ls -ls
-          ~/sfdx/install
           export PATH=~/sfdx/bin:$PATH
           # echo "export PATH=~/sfdx/bin:$PATH" >> $BASH_ENV
           sfdx
@@ -55,7 +54,7 @@ jobs:
           openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K ${{Secrets.DECRYPTION_KEY}} -iv ${{Secrets.DECRYPTION_IV}}
       - name: Authorize Org
         run: |
-          sfdx force:auth:jwt:grant --clientid ${{Secrets.HUB_CONSUMER_KEY}} --jwtkeyfile assets/server.key --username ${{Secrets.HUB_USER_NAME}} --setdefaultdevhubusername -a HubOrg
+          ~/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${{Secrets.HUB_CONSUMER_KEY}} --jwtkeyfile assets/server.key --username ${{Secrets.HUB_USER_NAME}} --setdefaultdevhubusername -a HubOrg
       - name: Run Apex Tests
         run: |
           sfdx force:apex:test:run --targetusername HubOrg --wait 10 --resultformat tap --codecoverage --testlevel RunLocalTests
